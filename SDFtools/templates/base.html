@@ -1,13 +1,77 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='main.css')}}">
+{% endblock %}
+{% block title %}Welcome to 4thBN 5thBDE{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top">
-  
-</div>
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">4th BN 5th BDE Web Portal</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/help">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 {% endblock %}
 
 {% block content %}
-  <h1>Hello, Crusty</h1>
+ <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+
+                {%- for item in current_menu.children recursive -%}
+                  <li {% if item.active %}class="active"{% endif %}>
+                    <a  href="{{ item.url}}">{{ item.text }}{% if item.active %}<span class="sr-only">(current)</span>{% endif %}</a>
+                    {%- if item.children -%}
+                    <ul>
+                      {{ loop(item.children) }}
+                    </ul>
+                    {%- endif -%}
+                  </li>
+                  {%- endfor -%}
+
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+             <div  class="alert alert-info">
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+              </div>
+          {% endif %}
+        {% endwith %}
+       {% block maincontent %}
+       <img src="{{url_for('static', filename='img/4-5.jpg')}}" class="img-responsive center-block logoimg" />
+          </ul >
+
+                   <ul class="list-group col-md-2" >
+                <li class="list-group-item activ">FT Benning Weather</li>
+                <li class="list-group-item"><span class="badge">{{ weather.weather }}</span>Weather:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.wind_mph }} MPH</span>wind:</li>
+           </ul>
+       {% endblock %}
+        </div>
+      </div>
+    </div>
 
 {% endblock %}

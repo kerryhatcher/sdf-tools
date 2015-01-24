@@ -1,14 +1,10 @@
-{% extends "bootstrap/base.html" %}
+{% extends "base.html" %}
 {% block title %}This is an example page{% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
-{% endblock %}
 
-{% block content %}
-  <h1>Hello, Crusty</h1>
+
+{% block maincontent %}
+  <h1>Send Message</h1>
     <form method="POST" action="/submit">
     {{ form.hidden_tag() }}
     {{ form.msg.label }} {{ form.msg(size=20) }}
