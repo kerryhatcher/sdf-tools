@@ -8,6 +8,7 @@ from os.path import expanduser
 from flask.ext.stormpath import StormpathManager
 from flask.ext import menu
 from os import environ
+import ast
 from routes import gui
 
 app = Flask(__name__)
@@ -23,7 +24,7 @@ app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
 
 app.config['STORMPATH_APPLICATION'] = 'gsdf5th'
 app.config['STORMPATH_ENABLE_GOOGLE'] = True
-app.config['STORMPATH_SOCIAL'] = environ.get('STROMPATH-SOCIAL')
+app.config['STORMPATH_SOCIAL'] = ast.literal_eval(environ.get('STROMPATH-SOCIAL'))
 
 
 stormpath_manager = StormpathManager(app)
