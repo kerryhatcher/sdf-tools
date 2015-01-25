@@ -5,6 +5,7 @@ from flask import render_template
 from flask import redirect
 from flask import flash
 from flask.ext.stormpath import login_required, user
+from flask.ext.stormpath import groups_required
 from flask import render_template_string
 import boto
 from flask.ext import menu
@@ -25,12 +26,12 @@ def hello_world():
 
 @gui.route('/alert')
 @menu.register_menu(gui, 'Send Alert', 'Send Alert')
-@login_required
+@groups_required(['approved'])
 def send_alert():
     return render_template('alert.html', form=MyForm())
 
 @gui.route('/submit', methods=('GET', 'POST'))
-@login_required
+@groups_required(['approved'])
 def submit():
     form = MyForm()
     if form.validate_on_submit():
@@ -44,7 +45,7 @@ def submit():
     return render_template('submit.html', form=form)
 
 @gui.route('/success')
-@login_required
+@groups_required(['approved'])
 def success():
     return render_template('success.html', form=MyForm())
 
