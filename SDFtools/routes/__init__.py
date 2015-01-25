@@ -43,7 +43,7 @@ def submit():
         msg = "Hi there\nI am sending this message over boto.\nYour booty Jan"
         subj = form.data['msg']
 
-        #res = sns.publish(snstopic_arn, msg, subj)
+        res = sns.publish(snstopic_arn, msg, subj)
         flash('Message Sent')
         return redirect('/alert')
     return render_template('submit.html', form=form)
