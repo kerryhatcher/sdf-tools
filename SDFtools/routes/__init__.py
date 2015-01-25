@@ -11,7 +11,7 @@ import boto
 from flask.ext import menu
 import  pywapi
 
-from SDFtools.forms import MyForm
+from SDFtools.forms import AlertForm
 
 boto.set_stream_logger('boto')
 
@@ -32,12 +32,12 @@ def hello_world():
 @groups_required(['approved'])
 def send_alert():
     subscriptions = sns.get_all_subscriptions_by_topic(snstopic_arn)
-    return render_template('alert.html', form=MyForm(), subscriptions=subscriptions)
+    return render_template('alert.html', form=AlertForm(), subscriptions=subscriptions,  weather=noaa_result)
 
 @gui.route('/submit', methods=('GET', 'POST'))
 @groups_required(['approved'])
 def submit():
-    form = MyForm()
+    form = AlertForm()
     if form.validate_on_submit():
 
         msg = "Hi there\nI am sending this message over boto.\nYour booty Jan"
@@ -51,20 +51,20 @@ def submit():
 @gui.route('/success')
 @groups_required(['approved'])
 def success():
-    return render_template('success.html', form=MyForm())
+    return render_template('success.html', form=AlertForm(), weather=noaa_result)
 
 
 @gui.route('/settings')
 @login_required
 def settings():
-    return render_template('settings.html')
+    return render_template('settings.html', weather=noaa_result)
 
 @gui.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=user, weather=noaa_result)
 
 @gui.route('/help')
 @login_required
 def help():
-    return render_template('help.html')
+    return render_template('help.html', weather=noaa_result)

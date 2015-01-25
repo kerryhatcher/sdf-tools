@@ -13,10 +13,10 @@
     <input type="submit" value="Go">
 </form>
         </div>
-    <ul class="list-group col-md-2" >
+    <ul class="list-group col-md-4" >
     <li class="list-group-item activ">Subscribers</li>
     {%- for item in subscriptions.ListSubscriptionsByTopicResponse.ListSubscriptionsByTopicResult.Subscriptions recursive -%}
-    <li class="list-group-item">{{ item.Endpoint }}</li>
+    <li class="list-group-item">{% if item.SubscriptionArn ==  'PendingConfirmation' %}<span class="badge">{{ item.SubscriptionArn }}</span>{%- endif -%}{{ item.Endpoint }}</li>
     {%- endfor -%}
     </ul>
     </div>

@@ -7,6 +7,9 @@
 {% block title %}Welcome to 4thBN 5thBDE{% endblock %}
 
 {% block navbar %}
+    <div class="navbar navbar-fixed-top">
+    TEST
+    </div>
  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -45,7 +48,18 @@
                     {%- endif -%}
                   </li>
                   {%- endfor -%}
+            </ul>
+                  </ul >
 
+                   <ul class="list-group" >
+                <li class="list-group-item"><span class="badge">{{ weather.location }}</span>Locaton:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.weather }}</span>Weather: <img src={{ weather.icon_url_base ~ weather.icon_url_name }}></li>
+                <li class="list-group-item"><span class="badge">{{ weather.wind_mph }} MPH</span>wind:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.wind_dir }}</span>Wind Direction:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.temp_f }} MPH</span>Temp F:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.dewpoint_f }}</span>Dewpont F:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.relative_humidity }} </span>Relative Humidity:</li>
+           </ul>
 
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -62,13 +76,7 @@
         {% endwith %}
        {% block maincontent %}
        <img src="{{url_for('static', filename='img/4-5.jpg')}}" class="img-responsive center-block logoimg" />
-          </ul >
 
-                   <ul class="list-group col-md-2" >
-                <li class="list-group-item activ">FT Benning Weather</li>
-                <li class="list-group-item"><span class="badge">{{ weather.weather }}</span>Weather:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.wind_mph }} MPH</span>wind:</li>
-           </ul>
        {% endblock %}
         </div>
       </div>
