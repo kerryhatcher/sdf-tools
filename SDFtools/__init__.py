@@ -22,6 +22,8 @@ app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
 app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
 
 app.config['STORMPATH_APPLICATION'] = 'gsdf5th'
+app.config['STORMPATH_ENABLE_GOOGLE'] = True
+app.config['STORMPATH_SOCIAL'] = environ.get('STROMPATH-SOCIAL')
 
 
 stormpath_manager = StormpathManager(app)
