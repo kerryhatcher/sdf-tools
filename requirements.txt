@@ -2,6 +2,7 @@ boto==2.35.2
 facebook-sdk==0.4.0
 Flask==0.10.1
 Flask-Bootstrap==3.3.0.1
+Flask-Cache==0.13.1
 Flask-Login==0.2.11
 Flask-Menu==0.2.0
 Flask-Stormpath==0.3.1
@@ -19,6 +20,7 @@ PyJWT==0.4.1
 --allow-external pywapi
 --allow-unverified pywapi
 pywapi==0.3.8
+PyYAML==3.11
 requests==2.5.1
 rsa==3.1.4
 six==1.9.0
