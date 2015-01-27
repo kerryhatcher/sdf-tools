@@ -6,6 +6,21 @@
   <h1>Settings</h1>
 
     Custom settings will be here
+    <h2>{{ user.custom_data['wx'] }}</h2>
+    <div class="container-fluid" >
+        <form role="form" method="POST" action="/settings/submit">
+            <div class="form-group">
+                <label for="wxstation">Select WX Station</label>
+                {{ form.hidden_tag() }}>
+                {{ form.wxstation(class_='form-control') }}
+
+            </div>
+        <input type="submit" value="Go">
+        </form>
+    </div>
+
+
+
 
 
 {% endblock %}

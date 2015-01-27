@@ -7,9 +7,6 @@
 {% block title %}Welcome to 4thBN 5thBDE{% endblock %}
 
 {% block navbar %}
-    <div class="navbar navbar-fixed-top">
-    TEST
-    </div>
  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -19,7 +16,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">4th BN 5th BDE Web Portal</a>
+          <a class="navbar-brand" href="/">**TESTING** 4th BN 5th BDE Web Portal **DO NOT USE***</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -52,7 +49,7 @@
                   </ul >
 
                    <ul class="list-group" >
-                <li class="list-group-item"><span class="badge">{{ weather.location }}</span>Locaton:</li>
+                <li class="list-group-item"><span class="badge">{{ weather.station_id }}</span>Station ID:</li>
                 <li class="list-group-item"><span class="badge">{{ weather.weather }}</span>Weather: <img src={{ weather.icon_url_base ~ weather.icon_url_name }}></li>
                 <li class="list-group-item"><span class="badge">{{ weather.wind_mph }} MPH</span>wind:</li>
                 <li class="list-group-item"><span class="badge">{{ weather.wind_dir }}</span>Wind Direction:</li>

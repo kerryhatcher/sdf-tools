@@ -1,0 +1,3 @@
+Raygun: https://raygun.io/
+    Auto error reporting
+
