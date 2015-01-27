@@ -12,6 +12,7 @@ from flask.ext import menu
 import  pywapi
 
 from SDFtools.forms import AlertForm
+from SDFtools.forms.user import ContactForm
 
 boto.set_stream_logger('boto')
 
@@ -62,7 +63,20 @@ def settings():
 @gui.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', user=user, weather=noaa_result)
+    return render_template('profile.html', user=user, weather=noaa_result, contactform=ContactForm())
+
+@gui.route('/profile/submit', methods=('GET', 'POST'))
+@groups_required(['approved'])
+def profilesubmit():
+    form = ContactForm()
+    if form.validate_on_submit():
+        user.custom_data['phone'] = form.data['phone']
+        user.save()
+        print('User Data:')
+        print user.custom_data['phone']
+        flash('Data Received')
+        return redirect('/profile')
+    return render_template('profile.html', contactform=ContactForm())
 
 @gui.route('/help')
 @login_required

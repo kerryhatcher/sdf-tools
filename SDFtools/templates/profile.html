@@ -5,6 +5,14 @@
 {% block maincontent %}
   <h1>Hello {{ user.full_name }}</h1>
 
+    <h2>Cell: {{ user.custom_data['phone'] }}</h2>
+
     This is were you will review info about you and update, fix, add.
+
+       <form method="POST" action="/profile/submit">
+    {{ contactform.hidden_tag() }}
+    {{ contactform.phone.label }} {{ contactform.phone(size=20) }}
+    <input type="submit" value="Update">
+</form>
 
 {% endblock %}
