@@ -49,14 +49,14 @@
                   </ul >
 
                    <ul class="list-group" >
-                <li class="list-group-item"><img class="img-responsive center-block" src={{ weather.icon_url_base ~ weather.icon_url_name }}></li>
-                <li class="list-group-item"><span class="badge">{{ weather.station_id }}</span>Station ID:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.weather }}</span>Weather: </li>
-                <li class="list-group-item"><span class="badge">{{ weather.wind_mph }} MPH</span>wind:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.wind_dir }}</span>Wind Direction:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.temp_f }}</span>Temp F:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.dewpoint_f }}</span>Dewpont F:</li>
-                <li class="list-group-item"><span class="badge">{{ weather.relative_humidity }} </span>Relative Humidity:</li>
+                <li class="list-group-item"><img class="img-responsive center-block" src={{ weather2.icon_url_base ~ weather2.icon_url_name }}></li>
+                <li class="list-group-item"><span class="badge">{{ weather2.station_id }}</span>Station ID:</li>
+                <li class="list-group-item"><span class="badge">{{ weather2.weather }}</span>Weather: </li>
+                <li class="list-group-item"><span class="badge">{{ weather2.wind_mph }} MPH</span>wind:</li>
+                <li class="list-group-item"><span class="badge">{{ weather2.wind_dir }}</span>Wind Direction:</li>
+                <li class="list-group-item"><span class="badge">{{ weather2.temp_f }}</span>Temp F:</li>
+                <li class="list-group-item"><span class="badge">{{ weather2.dewpoint_f }}</span>Dewpont F:</li>
+                <li class="list-group-item"><span class="badge">{{ weather2.relative_humidity }} </span>Relative Humidity:</li>
            </ul>
 
         </div>
@@ -74,6 +74,9 @@
         {% endwith %}
        {% block maincontent %}
        <img src="{{url_for('static', filename='img/4-5.jpg')}}" class="img-responsive center-block logoimg" />
+
+
+           {{ weather }}
 
        {% endblock %}
         </div>

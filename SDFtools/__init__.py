@@ -8,6 +8,7 @@ from os.path import expanduser
 from flask.ext.stormpath import StormpathManager
 from flask.ext import menu
 from os import environ
+from SDFtools import weather
 import ast
 from flask.ext.cache import Cache
 
@@ -42,7 +43,7 @@ app.config['STORMPATH_LOGIN_TEMPLATE'] = 'login.html'
 stormpath_manager = StormpathManager(app)
 menu.Menu(app=app)
 
-
+weather.Weather(app=app)
 
 if __name__ == '__main__':
     app.run(debug=True)
