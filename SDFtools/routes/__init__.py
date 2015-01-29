@@ -16,6 +16,7 @@ from SDFtools.forms.user import ContactForm
 from SDFtools.forms.user import SettingsForm
 from SDFtools.models import gawxstations
 from SDFtools.models.user import setuserwx
+from SDFtools.models import missions
 
 
 boto.set_stream_logger('boto')
@@ -107,3 +108,13 @@ def profilesubmit():
 @login_required
 def help():
     return render_template('help.html' )
+
+
+""" Missions Tracker """
+
+@gui.route('/missions')
+@menu.register_menu(gui, 'missiontracker', 'Mission Tracker')
+@groups_required(['approved'])
+def missionsroot():
+    data = missions.getallmissions()
+    return render_template('missions.html', data=data)

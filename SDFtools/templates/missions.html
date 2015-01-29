@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Missions{% endblock %}
+
+
+{% block maincontent %}
+  <h1>GSDF Missions</h1>
+    <table class="table table-hover">
+    <caption>Current Missions</caption>
+    <thead>
+        <tr>
+            <td>
+                SAD #
+            </td>
+            <td>
+                Description
+            </td>
+        </tr>
+    </thead>
+    {%- for mission in data recursive -%}
+        <tr>
+            <td>
+                <li class="list-group-item">{{ mission.SAD_ID.S }}</li>
+            </td>
+            <td>
+                <li class="list-group-item">{{ mission.DESCRIPTION.S }}</li>
+            </td>
+        </tr>
+
+
+
+    {%- endfor -%}
+    </table>
+
+{% endblock %}
