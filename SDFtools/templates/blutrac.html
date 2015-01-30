@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}BluTrac{% endblock %}
+
+
+{% block maincontent %}
+  <h1>Blue Force Tracker</h1>
+
+<button onclick="GetData()" type="button" class="btn btn-danger">Action</button>
+
+     <div class="location"></div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+
+    <script type="application/javascript">
+
+    function GetData() {
+        $( ".location").empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/locations",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+
+                console.log(data);
+                for (user in data ){
+
+                    $( ".location" ).append( "<p>" + user + " Location:" + data[user]['lat']  + " - " + data[user]['log'] + "</p>" );
+                }
+
+            },
+
+            error: function (jqXHR, status) {
+                // error handler
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+    </script>
+
+
+{% endblock %}

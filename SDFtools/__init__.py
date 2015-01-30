@@ -9,6 +9,7 @@ from flask.ext.stormpath import StormpathManager
 from flask.ext import menu
 from os import environ
 from SDFtools import weather
+
 import ast
 from flask.ext.cache import Cache
 
@@ -17,12 +18,18 @@ from flask.ext.cache import Cache
 
 from routes import gui
 from cache import cache
+from SDFtools.api import api
+
 
 
 
 
 app = Flask(__name__)
+
 app.register_blueprint(gui)
+
+app.register_blueprint(api, urlprefix="api")
+
 Bootstrap(app)
 app.config['CACHE_TYPE'] = 'simple'
 cache.init_app(app)
@@ -45,8 +52,8 @@ menu.Menu(app=app)
 
 weather.Weather(app=app)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+
 
 
 

@@ -6,9 +6,9 @@ from flask import redirect
 from flask import flash
 from flask.ext.stormpath import login_required, user
 from flask.ext.stormpath import groups_required
-from flask import render_template_string
 import boto
 from flask.ext import menu
+from flask.ext import restful
 
 
 from SDFtools.forms import AlertForm
@@ -17,12 +17,13 @@ from SDFtools.forms.user import SettingsForm
 from SDFtools.models import gawxstations
 from SDFtools.models.user import setuserwx
 from SDFtools.models import missions
+from SDFtools.api import views
 
 
 boto.set_stream_logger('boto')
 
 gui = Blueprint('gui', __name__)
-
+api = restful.Api(gui)
 
 sns = boto.connect_sns()
 snstopic_arn = "arn:aws:sns:us-east-1:150179862823:5bde_alerts"
@@ -118,3 +119,61 @@ def help():
 def missionsroot():
     data = missions.getallmissions()
     return render_template('missions.html', data=data)
+
+""" BluTrac """
+
+@gui.route('/blutrac')
+@menu.register_menu(gui, 'blutrac', 'Troop Tracker')
+@groups_required(['approved'])
+def trackerroot():
+    #data = missions.getallmissions()
+    return render_template('blutrac.html')
+
+""" API """
+
+class HelloWorld(restful.Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+locations = {'hat': {'lat': 45, 'log': 22}, 'jim': {'lat': 17, 'log': 82}}
+
+
+from flask.ext.restful import reqparse, abort, Api, Resource
+
+parser = reqparse.RequestParser()
+parser.add_argument('location', type=str)
+parser.add_argument('user', type=str)
+
+
+class Location(restful.Resource):
+    def get(self, userid):
+        return {userid: locations[userid]}
+
+    def put(self, userid):
+        args = parser.parse_args()
+        locations[userid] = {'location': args['location']}
+        print args['location']
+        print locations[userid]
+        return {locations: locations[userid]}
+
+# LocationList
+#   shows a list of all todos, and lets you POST to add new tasks
+class LocationList(Resource):
+    def get(self):
+        return locations
+
+    def post(self):
+        #print request.json
+        args = parser.parse_args()
+        #print args
+        locations[args['user']] = {args['user']: args['location']}
+        print locations[args['user']]
+        return locations[args['user']], 201
+
+"""
+[kwhatcher@hatchlap ~]$ curl -H "Content-type: application/json" http://localhost:5000/api/locations -d "{\"location\": \"32.333\",\"user\": \"kerry\"}" -X POST -v
+[kwhatcher@hatchlap ~]$ curl -H "Content-type: application/json" http://localhost:5000/api/locations   -X GET -v
+"""
+
+api.add_resource(LocationList, '/api/locations')
+api.add_resource(Location, '/api/locations/<string:userid>')
