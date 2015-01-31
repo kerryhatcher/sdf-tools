@@ -11,7 +11,7 @@ def getuserlast(user):
     results = conn.query(
         'gpstrack',
         key_conditions={'user': {'AttributeValueList': [{'S': user}], 'ComparisonOperator': 'EQ'}},
-        scan_index_forward=True,
+        scan_index_forward=False,
         limit=1
     )
     #print results
