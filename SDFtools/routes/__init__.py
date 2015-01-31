@@ -14,10 +14,12 @@ from flask.ext import restful
 from SDFtools.forms import AlertForm
 from SDFtools.forms.user import ContactForm
 from SDFtools.forms.user import SettingsForm
+
 from SDFtools.models import gawxstations
 from SDFtools.models.user import setuserwx
 from SDFtools.models import missions
-from SDFtools.api import views
+from SDFtools.models import blutrac
+
 
 
 boto.set_stream_logger('boto')
@@ -160,7 +162,10 @@ class Location(restful.Resource):
 #   shows a list of all todos, and lets you POST to add new tasks
 class LocationList(Resource):
     def get(self):
-        return locations
+        users = {'tes4974', 'hat6974'}
+        data = blutrac.getallusers(users)
+        print data
+        return data
 
     def post(self):
         #print request.json

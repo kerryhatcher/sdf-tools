@@ -86,6 +86,8 @@
 {% endblock %}
 
 
-{% block pagejs %}
+{% block scripts %}
+  {{super()}}
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.8.min.js"></script>
 
 {% endblock %}

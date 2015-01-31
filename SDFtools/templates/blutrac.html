@@ -29,7 +29,7 @@
                 console.log(data);
                 for (user in data ){
 
-                    $( ".location" ).append( "<p>" + user + " Location:" + data[user]['lat']  + " - " + data[user]['log'] + "</p>" );
+                    $( ".location" ).append( "<p>" + data[user][0]['user']['S'] + " Location:" + data[user][0]['lat']['N']  + "  X  " + data[user][0]['log']['N'] + "</p>" );
                 }
 
             },

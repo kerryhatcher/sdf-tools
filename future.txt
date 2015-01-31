@@ -1,3 +1,10 @@
 Raygun: https://raygun.io/
     Auto error reporting
 
+Zoom: https://zoom.us
+    Web Meetings
+
+Codementor: https://www.codementor.io
+    Instant Programming Help
+
+
