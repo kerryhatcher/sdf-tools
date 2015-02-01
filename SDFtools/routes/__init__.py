@@ -11,6 +11,8 @@ from flask.ext import menu
 from flask.ext import restful
 
 
+
+
 from SDFtools.forms import AlertForm
 from SDFtools.forms.user import ContactForm
 from SDFtools.forms.user import SettingsForm
@@ -144,12 +146,14 @@ from flask.ext.restful import reqparse, abort, Api, Resource
 
 parser = reqparse.RequestParser()
 parser.add_argument('location', type=str)
+parser.add_argument('lat', type=str)
+parser.add_argument('log', type=str)
 parser.add_argument('user', type=str)
 
 
 class Location(restful.Resource):
     def get(self, userid):
-        return {userid: locations[userid]}
+        return blutrac.getuserlast(userid)
 
     def put(self, userid):
         args = parser.parse_args()
@@ -168,10 +172,12 @@ class LocationList(Resource):
         return data
 
     def post(self):
+        results={}
         #print request.json
         args = parser.parse_args()
         #print args
-        locations[args['user']] = {args['user']: args['location']}
+        blutrac.updateuser(args['user'],args['lat'], args['log'])
+        locations[args['user']] = {args['user']: {'lat': args['lat'], 'log': args['log']}}
         print locations[args['user']]
         return locations[args['user']], 201
 

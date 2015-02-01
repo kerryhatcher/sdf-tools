@@ -9,6 +9,7 @@ from flask.ext.stormpath import StormpathManager
 from flask.ext import menu
 from os import environ
 from SDFtools import weather
+from flask.ext.cors import CORS
 
 import ast
 from flask.ext.cache import Cache
@@ -49,6 +50,11 @@ app.config['STORMPATH_LOGIN_TEMPLATE'] = 'login.html'
 
 stormpath_manager = StormpathManager(app)
 menu.Menu(app=app)
+app.config['CORS_ALLOW_HEADERS'] = "Content-Type"
+app.config['CORS_RESOURCES'] = {r"/api/*": {"origins": "*"}}
+cors = CORS(app)
+
+
 
 weather.Weather(app=app)
 
