@@ -3,6 +3,7 @@ __author__ = 'kwhatcher'
 
 from boto.dynamodb2.table import Table
 from boto.dynamodb2.layer1 import DynamoDBConnection
+import time
 from boto.dynamodb import condition
 from flask import jsonify
 
@@ -15,6 +16,7 @@ def getuserlast(user):
         limit=1
     )
     #print results
+    conn.close()
     return results
 
 def getallusers(users):
@@ -26,18 +28,25 @@ def getallusers(users):
         print userlocation['Items']
     #print locations[user]
     return locations
-'''
-def getuserlast(user):
-    userdata = {}
-    gpstracks = Table('gpstrack')
-    results = gpstracks.query_2(
-        user__eq=user,
-        reverse=True,
-        limit=1
+
+def updateuser(user, lat, log):
+    item = {
+        "epochtime": {
+            "N": str(time.time())
+        },
+        "lat": {
+            "N": str(lat)
+        },
+        "log": {
+            "N": str(log)
+        },
+        "user": {
+            "S": user
+        }
+    }
+    conn = DynamoDBConnection()
+    results = conn.put_item(
+        'gpstrack',
+        item
     )
-    for result in results:
-        #for item in result:
-            #print item
-        print jsonify(data=[results for item in result])
-        return result._data
-'''
+    return results
