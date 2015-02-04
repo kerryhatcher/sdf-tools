@@ -58,7 +58,8 @@
                 <li class="list-group-item"><span class="badge">{{ weather2.dewpoint_f }}</span>Dewpont F:</li>
                 <li class="list-group-item"><span class="badge">{{ weather2.relative_humidity }} </span>Relative Humidity:</li>
            </ul>
-
+         Build Status:
+         <img src="https://codeship.com/projects/181f6840-8581-0132-cb32-36feb9ade995/status?branch=master" />
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         {% with messages = get_flashed_messages() %}
@@ -73,6 +74,7 @@
           {% endif %}
         {% endwith %}
        {% block maincontent %}
+
        <img src="{{url_for('static', filename='img/4-5.jpg')}}" class="img-responsive center-block logoimg" />
 
 
@@ -81,6 +83,7 @@
        {% endblock %}
         </div>
       </div>
+
     </div>
 
 {% endblock %}
