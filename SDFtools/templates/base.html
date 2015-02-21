@@ -92,7 +92,21 @@
 {% block scripts %}
   {{super()}}
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.8.min.js"></script>
+    <script src="https://cdn.auth0.com/js/lock-7.0.min.js"></script>
 
+    <script type="text/javascript">
+  var lock = new Auth0Lock('5xNV1SekE1QjPXFz8UH7PUayx3PpILec', 'app33477067.auth0.com');
+
+  function signin() {
+    lock.show({
+        callbackURL: 'http://127.0.0.1:5000/callback'
+      , responseType: 'code'
+      , authParams: {
+        scope: 'openid profile'
+      }
+    });
+  }
+</script>
 
 
 {% endblock %}

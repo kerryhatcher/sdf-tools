@@ -3,9 +3,13 @@
 
 
 {% block maincontent %}
-  <h1>Hello {{ user.full_name }}</h1>
+  <h1>Hello {{ user.name }}</h1>
 
-    <h2>Cell: {{ user.custom_data['phone'] }}</h2>
+    <img src="{{ user['picture'] }}" />
+
+    <p>Cell: </p>
+
+    <p>Groups: {{ user['groups'] }}</p>
 
     This is were you will review info about you and update, fix, add.
 
