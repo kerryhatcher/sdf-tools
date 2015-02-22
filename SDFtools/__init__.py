@@ -16,6 +16,7 @@ from cache import cache
 from SDFtools.api import api
 from SDFtools import weather
 from SDFtools import gmaps
+from SDFtools.auth import context as authcontext
 
 
 
@@ -29,6 +30,7 @@ Bootstrap(app)
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 
+authcontext.Auth(app=app)
 menu.Menu(app=app)
 weather.Weather(app=app)
 gmaps.Gmap(app=app)

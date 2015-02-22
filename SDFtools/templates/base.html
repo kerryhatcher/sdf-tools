@@ -74,7 +74,6 @@
           {% endif %}
         {% endwith %}
        {% block maincontent %}
-
        <img src="{{url_for('static', filename='img/4-5.jpg')}}" class="img-responsive center-block logoimg" />
 
 
@@ -99,7 +98,7 @@
 
   function signin() {
     lock.show({
-        callbackURL: 'http://127.0.0.1:5000/callback'
+        callbackURL: '{{ auth_list.uri }}'
       , responseType: 'code'
       , authParams: {
         scope: 'openid profile'

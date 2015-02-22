@@ -7,7 +7,7 @@ import os
 import json
 
 import requests
-from flask import Flask, request, jsonify, session, redirect, render_template, send_from_directory, current_app
+from flask import request, session, redirect, render_template
 from flask import Blueprint
 from os import environ
 
