@@ -20,7 +20,7 @@ def hello_monkey():
     return str(resp)
 
 
-@app.route("/voice", methods=['GET', 'POST'])
+@phone.route("/voice", methods=['GET', 'POST'])
 def hello_monkey():
     """Respond to incoming requests."""
     resp = twilio.twiml.Response()
