@@ -9,7 +9,21 @@ from elasticsearch import Elasticsearch
 
 
 
-es = Elasticsearch(environ.get('ES_CONNECT_STRING'))
+import certifi
+
+es_servers = environ.get('ES_SERVERS').split(',')
+
+for item in es_servers:
+    print item
+
+es = Elasticsearch(
+    es_servers,
+    http_auth=(environ.get('ES_USER'), environ.get('ES_PASS')),
+    port=24033,
+    use_ssl=True,
+    verify_certs=True,
+    ca_certs=certifi.where(),
+)
 
 
 phone = Blueprint('phone', __name__)
@@ -40,6 +54,20 @@ def send_sms():
     return "<h1>SENT</h1>"
 
 
+@phone.route("/sms/sendmessage/all", methods=['GET'])
+def send_sms_all():
+    """Send a message to everyone"""
+
+    res = es.search(index="phonebook", body={"query": {"match_all": {}}})
+
+    for hit in res['hits']['hits']:
+        print(hit['_id'])
+        to_number = "+1 " + hit['_id']
+        message = client.messages.create(to=to_number, from_="+14782922959",body=request.args.get('message'))
+
+    return "<h1>SENT</h1>"
+
+
 @phone.route("/voice", methods=['GET', 'POST'])
 def hello_voice():
     """Respond to incoming requests."""
@@ -66,7 +94,7 @@ def add_numbers():
     'number': request.args.get('number'),
     }
     res = es.index(index="phonebook", doc_type='phonenumber', id=request.args.get('number'), body=doc)
-    return res['created']
+    return str(res['created'])
 
 @phone.route("/number", methods=['GET'])
 def get_number():
@@ -77,4 +105,4 @@ def get_number():
 @phone.route("/numbers", methods=['GET'])
 def get_numbers():
     res = es.search(index="phonebook", body={"query": {"match_all": {}}})
-    return res['hits']['hits']
+    return str(res['hits']['hits'])
