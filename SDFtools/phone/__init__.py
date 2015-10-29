@@ -5,6 +5,12 @@ import twilio.twiml
 from twilio.rest import TwilioRestClient
 from os import environ
 from flask import url_for
+from elasticsearch import Elasticsearch
+
+
+
+es = Elasticsearch([environ.get('ES_CONNECT_STRING')])
+
 
 phone = Blueprint('phone', __name__)
 
@@ -53,3 +59,22 @@ def send_voice():
     return "<h1>SENT</h1>"
 
 
+@phone.route("/numbers/add", methods=['GET'])
+def add_numbers():
+    doc = {
+    'name': request.args.get('name'),
+    'number': request.args.get('number'),
+    }
+    res = es.index(index="phonebook", doc_type='phonenumber', id=request.args.get('number'), body=doc)
+    return res['created']
+
+@phone.route("/number", methods=['GET'])
+def get_number():
+    res = es.get(index="phonebook", doc_type='phonenumber', id=request.args.get('number'))
+
+    return res['_source']
+
+@phone.route("/numbers", methods=['GET'])
+def get_numbers():
+    res = es.search(index="test-index", body={"query": {"match_all": {}}})
+    return res['hits']['hits']
