@@ -9,7 +9,7 @@ phone = Blueprint('phone', __name__)
 
 
 @phone.route("/sms", methods=['GET', 'POST'])
-def hello_monkey():
+def hello_sms():
     """Respond to incoming calls with a simple text message."""
     from_number = request.values.get('From', None)
 
@@ -21,7 +21,7 @@ def hello_monkey():
 
 
 @phone.route("/voice", methods=['GET', 'POST'])
-def hello_monkey():
+def hello_voice():
     """Respond to incoming requests."""
     resp = twilio.twiml.Response()
     resp.say("Hello Monkey")
