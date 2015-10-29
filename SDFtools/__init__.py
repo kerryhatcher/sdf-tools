@@ -17,12 +17,13 @@ from SDFtools.api import api
 from SDFtools import weather
 from SDFtools import gmaps
 from SDFtools.auth import context as authcontext
-
+from SDFtools.phone import phone
 
 
 
 app = Flask(__name__)
 
+app.register_blueprint(phone, url_prefix='/phone')
 app.register_blueprint(gui)
 app.register_blueprint(auth)
 
