@@ -22,14 +22,14 @@ def hello_sms():
     resp.message("Roger")
     return str(resp)
 
-@phone.route("/sms/sendmessage", methods=['GET'])
+@phone.route("/sms_sendmessage", methods=['GET'])
 def send_sms():
     """Send a message to someone"""
     to_number = "+1 " + request.args.get('number')
 
     message = client.messages.create(to=to_number, from_="+14782922959",
                                      body=request.args.get('message'))
-    
+
     return "<h1>SENT</h1>"
 
 
