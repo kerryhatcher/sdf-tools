@@ -29,6 +29,8 @@ def send_sms():
 
     message = client.messages.create(to=to_number, from_="+14782922959",
                                      body=request.args.get('message'))
+    
+    return "<h1>SENT</h1>"
 
 
 @phone.route("/voice", methods=['GET', 'POST'])
