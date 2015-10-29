@@ -76,5 +76,5 @@ def get_number():
 
 @phone.route("/numbers", methods=['GET'])
 def get_numbers():
-    res = es.search(index="test-index", body={"query": {"match_all": {}}})
+    res = es.search(index="phonebook", body={"query": {"match_all": {}}})
     return res['hits']['hits']
