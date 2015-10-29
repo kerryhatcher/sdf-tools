@@ -4,6 +4,7 @@ from flask import Blueprint, request
 import twilio.twiml
 from twilio.rest import TwilioRestClient
 from os import environ
+from flask import url_for
 
 phone = Blueprint('phone', __name__)
 
@@ -40,5 +41,15 @@ def hello_voice():
     resp.say("Hello Soldier, get back to work")
 
     return str(resp)
+
+
+@phone.route("/voice/call", methods=['GET'])
+def send_voice():
+    """make a call."""
+    to_number = "+1 " + request.args.get('number')
+    call = client.calls.create(to=to_number,
+                               from_="+14782922959",
+                                url=url_for(hello_voice))
+    return "<h1>SENT</h1>"
 
 
