@@ -49,7 +49,7 @@ def send_voice():
     to_number = "+1 " + request.args.get('number')
     call = client.calls.create(to=to_number,
                                from_="+14782922959",
-                                url=url_for(hello_voice))
+                                url='https://gsdf5th.herokuapp.com/phone/voice')
     return "<h1>SENT</h1>"
 
 
