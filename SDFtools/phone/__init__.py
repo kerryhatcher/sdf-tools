@@ -9,7 +9,7 @@ from elasticsearch import Elasticsearch
 
 
 
-es = Elasticsearch([environ.get('ES_CONNECT_STRING')])
+es = Elasticsearch(environ.get('ES_CONNECT_STRING'))
 
 
 phone = Blueprint('phone', __name__)
