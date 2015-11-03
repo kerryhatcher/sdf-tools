@@ -12,9 +12,6 @@ from flask import session
 from SDFtools.auth.decorators import requires_auth
 from SDFtools.forms import AlertForm
 from SDFtools.forms.user import ContactForm
-from SDFtools.forms.user import SettingsForm
-from SDFtools.models import gawxstations
-from SDFtools.models.user import setuserwx
 from SDFtools.models import missions
 
 
@@ -75,7 +72,6 @@ def settingssubmit():
     if form.validate_on_submit():
         flash('Data Received')
         station = form.data['wxstation']
-        print station
         setuserwx(station)
         return redirect('/settings')
     flash('Data error')
@@ -84,7 +80,6 @@ def settingssubmit():
 @gui.route('/profile')
 @requires_auth
 def profile():
-    print "PROFILE TEST"
     return render_template('profile.html', user=session['profile'], contactform=ContactForm())
 
 # This does need authentication
@@ -103,8 +98,6 @@ def profilesubmit():
         user = session['profile']
         user.custom_data['phone'] = form.data['phone']
         user.save()
-        print('User Data:')
-        print user.custom_data['phone']
         flash('Data Received')
         return redirect('/profile')
     return render_template('profile.html', contactform=ContactForm())
@@ -130,7 +123,6 @@ def missionsroot():
         #print url
         urls.append(url)
 
-    print urls
     return render_template('missions.html', data=data, urls=urls)
 
 """ BluTrac """

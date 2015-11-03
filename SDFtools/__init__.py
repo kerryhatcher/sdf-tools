@@ -10,7 +10,7 @@ from os import environ
 
 
 
-from routes import gui
+from SDFtools.routes import gui
 from SDFtools.auth.routes import auth
 from cache import cache
 from SDFtools.api import api

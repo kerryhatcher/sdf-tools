@@ -18,8 +18,6 @@ def getallmissions():
     tables = conn.list_tables()
     table = Table('missions', connection=conn)
     results = conn.scan('missions')
-    for result in results['Items']:
-        print result
     return results['Items']
 
 
